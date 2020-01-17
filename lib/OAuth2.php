@@ -2,7 +2,6 @@
 
 namespace OAuth2;
 
-use OAuth2\Model\IOAuth2AccessToken;
 use OAuth2\Model\IOAuth2AuthCode;
 use OAuth2\Model\IOAuth2Client;
 use Symfony\Component\HttpFoundation\Request;
@@ -1008,13 +1007,12 @@ class OAuth2 implements IOAuth2
      *
      * @throws OAuth2ServerException
      * @throws OAuth2RedirectException
-     *
      * @see     http://tools.ietf.org/html/draft-ietf-oauth-v2-20#section-4.1.1
      * @see     http://tools.ietf.org/html/draft-ietf-oauth-v2-21#section-10.12
      *
      * @ingroup oauth2_section_3
      */
-    protected function getAuthorizeParams(Request $request = null)
+    public function getAuthorizeParams(Request $request = null)
     {
         $filters = array(
             "client_id" => array(

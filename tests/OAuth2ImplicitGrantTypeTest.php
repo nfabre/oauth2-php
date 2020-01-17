@@ -1,21 +1,24 @@
 <?php
 
+namespace OAuth2\Tests;
+
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
 use OAuth2\Model\OAuth2Client;
 use OAuth2\Tests\Fixtures\OAuth2ImplicitStub;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * OAuth2 test case.
  */
-class OAuth2ImplicitGrantTypeTest extends PHPUnit_Framework_TestCase
+class OAuth2ImplicitGrantTypeTest extends TestCase
 {
     /**
      * Tests OAuth2->grantAccessToken() with implicit
      *
      */
-    public function testGrantAccessTokenWithGrantImplicit()
+    public function testGrantAccessTokenWithGrantImplicit(): void
     {
         $stub = new OAuth2ImplicitStub();
         $stub->addClient(new OAuth2Client('blah', 'foo', array('http://www.example.com/')));
@@ -37,7 +40,7 @@ class OAuth2ImplicitGrantTypeTest extends PHPUnit_Framework_TestCase
      * Tests OAuth2->grantAccessToken() with implicit
      *
      */
-    public function testRejectedAccessTokenWithGrantImplicit()
+    public function testRejectedAccessTokenWithGrantImplicit(): void
     {
         //$this->fixture->grantAccessToken(/* parameters */);
 
@@ -58,9 +61,9 @@ class OAuth2ImplicitGrantTypeTest extends PHPUnit_Framework_TestCase
         } catch (OAuth2ServerException $e) {
             $this->assertSame('access_denied', $e->getMessage());
             $this->assertSame('The user denied access to your application', $e->getDescription());
-            $this->assertSame(array(
+            $this->assertSame([
                 'Location' => 'http://www.example.com/?foo=bar#error=access_denied&error_description=The+user+denied+access+to+your+application&state=42',
-            ), $e->getResponseHeaders());
+            ], $e->getResponseHeaders());
         }
     }
 }
